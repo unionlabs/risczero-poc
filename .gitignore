@@ -1,0 +1,9 @@
+**/.env
+**/result
+**/target
+**/target
+
+.direnv
+.DS_Store
+.vscode
+out
