@@ -8,3 +8,10 @@ methods = { path = "../methods" }
 risc0-zkvm = { version = "1.1.1" }
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 serde = "1.0"
+cometbls-groth16-verifier = { path = "../lib/cometbls-groth16-verifier" }
+hex-literal = "0.4.1"
+
+[dev-dependencies]
+function_name = "0.3.0"
+chrono = "0.4.38"
+fs2 = "0.4.3"

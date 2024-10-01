@@ -1,0 +1,31 @@
+[package]
+edition      = "2021"
+name         = "cometbls-groth16-verifier"
+version      = "0.1.0"
+publish      = false
+
+[dependencies]
+ark-ff       = { version = "0.4.2", default-features = false }
+byteorder    = { version = "1.4", default-features = false }
+ethabi       = { version = "18.0.0", default-features = false }
+hex-literal  = { version = "0.4.1", default-features = false }
+sha2         = { version = "0.10.7", default-features = false }
+sha3         = { version = "0.10.8", default-features = false }
+substrate-bn = { version = "0.6", default-features = false }
+primitive-types = {version = "0.12.1", features = ["serde_no_std", "impl-rlp"] }
+generic-array            = "0.14.7"
+serde                    = { version = "1.0.0", default-features = false }
+base64                    = { version = "0.22.1", default-features = false }
+thiserror                    = { version = "1.0.61", default-features = false }
+derive_more = { version = "0.99.17", features = ["display"] }
+typenum                  = { version = "1.17.0", features = ["const-generics", "no_std"] }
+# unionlabs    = { git = "https://github.com/unionlabs/union", branch = "main", default-features = false }
+
+
+[features]
+default = []
+std     = []
+
+[build-dependencies]
+gnark-key-parser = { git = "https://github.com/unionlabs/union", branch = "main", default-features = false }
+substrate-bn     = { version = "0.6", default-features = false }

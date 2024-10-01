@@ -1,13 +1,8 @@
+use cometbls_groth16_verifier::{handle_verify_zkp_request, VerifyZkpRequest};
 use risc0_zkvm::guest::env;
 
 fn main() {
-    // TODO: Implement your guest code here
-
-    // read the input
-    let input: u32 = env::read();
-
-    // TODO: do something with the input
-
-    // write public output to the journal
-    env::commit(&input);
+    let request: VerifyZkpRequest = env::read();
+    let result = handle_verify_zkp_request(request);
+    env::commit(&result.is_ok());
 }
