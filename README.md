@@ -8,4 +8,5 @@ export PATH=$PATH:$HOME/.cargo/bin
 curl -L https://risczero.com/install | bash
 export PATH=$PATH:$HOME/.risc0/bin
 rzup install
+cargo risczero new risczero-poc --guest-name guest_code_for_zk_proof
 ```
