@@ -1,9 +1,10 @@
 **/.env
 **/result
 **/target
-**/target
 
 .direnv
 .DS_Store
+.idea
 .vscode
 out
+out.csv
