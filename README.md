@@ -58,43 +58,43 @@ export PATH=$PATH:$HOME/.risc0/bin
 rzup install
 ```
 
-### Running the Project
-
-#### Running in Development Mode
-
-To run the project in development mode, execute the following command:
-
-```bash
-RISC0_DEV_MODE=0 cargo run
-```
-
-This will run the code in non-production mode, which is useful for faster iteration during development.
-
-#### Running in Production Mode
-
-To run the project in production mode, switch the `RISC0_DEV_MODE` environment variable to `1`:
-
-```bash
-RISC0_DEV_MODE=1 cargo run
-```
-
-This mode enforces the security guarantees of the zero-knowledge proofs.
-
 #### Running Test Cases
 
-To execute the test cases for the host code:
+The test run various test scenarios. The statistics of running the test is written to `./host/out.csv`.
 
+#### Running with fake proof (for testing the configuration)
 ```bash
-RISC0_DEV_MODE=0 cargo test -p host
+RISC0_DEV_MODE=1 cargo test -p host -- --test-threads=1 --nocapture
 ```
 
-#### Running with Bonsai API
+#### Running locally (generating 'stark' proof)
 
-To run the project while integrating with the Bonsai API, use the following command:
+To run the tests generating the proof on the local machine, use the following command:
 
 ```bash
-RISC0_DEV_MODE=0 BONSAI_API_URL=https://api.bonsai.xyz BONSAI_API_KEY=<your-api-key> cargo test -p host
+RISC0_DEV_MODE=0 cargo test -p host -- --test-threads=1 --nocapture
 ```
+`test-threads=1`: because we run one test at the time, so we can measure performance of each test.
+
+#### Running with Bonsai API (generating 'stark' proof)
+
+To run the tests while integrating with the Bonsai API, use the following command:
+
+```bash
+RISC0_DEV_MODE=0 SNARK_WRAPPING=0 BONSAI_API_URL=https://api.bonsai.xyz BONSAI_API_KEY=<your-api-key> cargo test -p host -- --test-threads=1 --nocapture
+```
+`test-threads=1`: because we run one test at the time, so don't run into api usage limitations.
+
+Replace `<your-api-key>` with your actual Bonsai API key.
+
+#### Running with Bonsai API (generating 'stark' proof and wrap in 'snark' proof)
+
+To run the tests while integrating with the Bonsai API, use the following command:
+
+```bash
+RISC0_DEV_MODE=0 SNARK_WRAPPING=1 BONSAI_API_URL=https://api.bonsai.xyz BONSAI_API_KEY=<your-api-key> cargo test -p host -- --test-threads=1 --nocapture
+```
+`test-threads=1`: because we run one test at the time, so don't run into api usage limitations.
 
 Replace `<your-api-key>` with your actual Bonsai API key.
 
@@ -129,3 +129,18 @@ Replace `<your-api-key>` with your actual Bonsai API key.
 | test_valid_block_969001    |           57429 |      156 |    325124096 |   309767266 |
 | test_valid_block_969002    |           56864 |      156 |    326107136 |   310300091 |
 | test_valid_proof           |           56622 |      155 |    325058560 |   309422908 |
+
+#### 2024-10-03: Generating Stark Proof and wrap in Snark Proof - Bonsai
+- System: MacBook Pro (16-inch, Nov 2023) - Apple M3 Max - 128GB - macOS Sonoma 14.6.1
+- r0.1.79.0-2-risc0-rust-aarch64-apple-darwin     (rustc 1.79.0-dev (22b036206 2024-08-21))
+
+| test                       | duration_millis | segments | total_cycles | user_cycles |
+|----------------------------|----------------:|---------:|-------------:|------------:|
+| test_invalid_block_969002  |          162386 |      156 |    325189632 |   309775278 |
+| test_invalid_block_969006  |          134967 |      155 |    325058560 |   309658054 |
+| test_invalid_proof         |           91479 |      155 |    325058560 |   309195187 |
+| test_invalid_verifying_key |           60356 |       77 |    161480704 |   153529076 |
+| test_tampered_block_969001 |           75227 |      155 |    325058560 |   309600358 |
+| test_valid_block_969001    |           74634 |      156 |    325124096 |   309767266 |
+| test_valid_block_969002    |           75680 |      156 |    326107136 |   310300091 |
+| test_valid_proof           |           75964 |      155 |    325058560 |   309422908 |

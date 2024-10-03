@@ -7,7 +7,7 @@ mod tests {
     use fs2::FileExt;
     use function_name::named;
     use hex_literal::hex;
-    use risc0_zkvm::{default_prover, ExecutorEnv, ProveInfo, Receipt};
+    use risc0_zkvm::{default_prover, ExecutorEnv, ProveInfo, ProverOpts, Receipt};
     use methods::GUEST_CODE_FOR_ZK_PROOF_ELF;
     use cometbls_groth16_verifier::VerifyZkpRequest;
     use std::io::Write;
@@ -202,7 +202,11 @@ mod tests {
 
         let prover = default_prover();
 
-        let prove_info = prover.prove(env, GUEST_CODE_FOR_ZK_PROOF_ELF).unwrap();
+        let prove_info = if snark_wrapping_enabled() {
+            prover.prove_with_opts(env, GUEST_CODE_FOR_ZK_PROOF_ELF, &ProverOpts::groth16()).unwrap()
+        } else {
+            prover.prove(env, GUEST_CODE_FOR_ZK_PROOF_ELF).unwrap()
+        };
 
         let duration = start.elapsed();
 
@@ -234,8 +238,12 @@ mod tests {
             prove_info.stats.segments,
             prove_info.stats.total_cycles,
             prove_info.stats.user_cycles
-        );        
-        
+        );
+
+        println!("-------------------------------------------");
+        println!("receipt: {:?}", prove_info.receipt);
+        println!("-------------------------------------------");
+
         println!("{line}");
         writeln!(file, "{}", line)?;
 
@@ -243,5 +251,17 @@ mod tests {
         file.unlock()?;
 
         Ok(())
+    }
+
+    fn snark_wrapping_enabled() -> bool {
+        is_enabled("SNARK_WRAPPING")
+    }
+
+    fn is_enabled(option: &str) -> bool {
+        std::env::var(option)
+            .ok()
+            .map(|x| x.to_lowercase())
+            .filter(|x| x == "1" || x == "true" || x == "yes")
+            .is_some()
     }
 }
