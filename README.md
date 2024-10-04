@@ -115,6 +115,19 @@ Replace `<your-api-key>` with your actual Bonsai API key.
 | test_valid_block_969002    |         2730153 |      326 |    341049344 |   310300091 |
 | test_valid_proof           |         2718512 |      325 |    340000768 |   309422908 |
 
+- System: Pop!_OS 22.04 LTS - Intel(R) Core(TM) i9-14900K - 96GB RAM - NVIDIA RTX 4080 - Samsung SSD 990 PRO 2TB rustc 1.79.0 (129f3b996 2024-06-10)
+
+| test                       | duration_millis | segments | total_cycles | user_cycles |
+|----------------------------|----------------:|---------:|-------------:|------------:|
+| test_invalid_block_969002   |         8306195 |      325 |    340787200 |   309775278 |
+| test_invalid_block_969006   |         8240079 |      325 |    340262912 |   309658054 |
+| test_invalid_proof          |         8232222 |      324 |    339738624 |   309195187 |
+| test_invalid_verifying_key  |         4064690 |      161 |    168034304 |   153529076 |
+| test_tampered_block_969001  |         8227910 |      325 |    340262912 |   309600358 |
+| test_valid_block_969001     |         8237661 |      325 |    340787200 |   309767266 |
+| test_valid_block_969002     |         8239499 |      326 |    341049344 |   310300091 |
+| test_valid_proof            |         8213685 |      325 |    340000768 |   309422908 |
+
 #### 2024-10-02: Generating Stark Proof - Bonsai
 - System: MacBook Pro (16-inch, Nov 2023) - Apple M3 Max - 128GB - macOS Sonoma 14.6.1
 - r0.1.79.0-2-risc0-rust-aarch64-apple-darwin     (rustc 1.79.0-dev (22b036206 2024-08-21))
@@ -130,6 +143,19 @@ Replace `<your-api-key>` with your actual Bonsai API key.
 | test_valid_block_969002    |           56864 |      156 |    326107136 |   310300091 |
 | test_valid_proof           |           56622 |      155 |    325058560 |   309422908 |
 
+- System: Pop!_OS 22.04 LTS - Intel(R) Core(TM) i9-14900K - 96GB RAM - NVIDIA RTX 4080 - Samsung SSD 990 PRO 2TB rustc 1.79.0 (129f3b996 2024-06-10)
+
+| test                       | duration_millis | segments | total_cycles | user_cycles |
+|----------------------------|----------------:|---------:|-------------:|------------:|
+| test_invalid_block_969002   |          148527 |      156 |    325189632 |   309775278 |
+| test_invalid_block_969006   |           98429 |      155 |    325058560 |   309658054 |
+| test_invalid_proof          |           65718 |      155 |    325058560 |   309195187 |
+| test_invalid_verifying_key  |           42160 |       77 |    161480704 |   153529076 |
+| test_tampered_block_969001  |           59479 |      155 |    325058560 |   309600358 |
+| test_valid_block_969001     |           59723 |      156 |    325124096 |   309767266 |
+| test_valid_block_969002     |           54372 |      156 |    326107136 |   310300091 |
+| test_valid_proof            |           58768 |      155 |    325058560 |   309422908 |
+
 #### 2024-10-03: Generating Stark Proof and wrap in Snark Proof - Bonsai
 - System: MacBook Pro (16-inch, Nov 2023) - Apple M3 Max - 128GB - macOS Sonoma 14.6.1
 - r0.1.79.0-2-risc0-rust-aarch64-apple-darwin     (rustc 1.79.0-dev (22b036206 2024-08-21))
@@ -144,3 +170,17 @@ Replace `<your-api-key>` with your actual Bonsai API key.
 | test_valid_block_969001    |           74634 |      156 |    325124096 |   309767266 |
 | test_valid_block_969002    |           75680 |      156 |    326107136 |   310300091 |
 | test_valid_proof           |           75964 |      155 |    325058560 |   309422908 |
+
+- System: Pop!_OS 22.04 LTS - Intel(R) Core(TM) i9-14900K - 96GB RAM - NVIDIA RTX 4080 - Samsung SSD 990 PRO 2TB rustc 1.79.0 (129f3b996 2024-06-10)
+
+| test                       | duration_millis | segments | total_cycles | user_cycles |
+|----------------------------|----------------:|---------:|-------------:|------------:|
+| test_invalid_block_969002   |          160630 |      156 |    325189632 |   309775278 |
+| test_invalid_block_969006   |          115332 |      155 |    325058560 |   309658054 |
+| test_invalid_proof          |           90974 |      155 |    325058560 |   309195187 |
+| test_invalid_verifying_key  |           62029 |       77 |    161480704 |   153529076 |
+| test_tampered_block_969001  |           73798 |      155 |    325058560 |   309600358 |
+| test_valid_block_969001     |           69144 |      156 |    325124096 |   309767266 |
+| test_valid_block_969002     |           73998 |      156 |    326107136 |   310300091 |
+| test_valid_proof            |           69619 |      155 |    325058560 |   309422908 |
+
