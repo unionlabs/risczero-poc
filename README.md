@@ -184,3 +184,13 @@ Replace `<your-api-key>` with your actual Bonsai API key.
 | test_valid_block_969002     |           73998 |      156 |    326107136 |   310300091 |
 | test_valid_proof            |           69619 |      155 |    325058560 |   309422908 |
 
+### Conclusion
+
+Risc Zero offers a straightforward API for creating Zero-Knowledge (ZK) circuits. However, it currently falls short of meeting our performance requirements. Generating a "STARK" proof and wrapping it in a SNARK proof takes between 1 to 2.5 minutes, whereas our current solution generates the SNARK proof in just 8 seconds.
+
+We assume that introducing elliptic curve precompiles for BN254 (namely add/mul/pairing) would drastically lower proving time. We use the [substrate-bn](https://github.com/paritytech/bn) library.
+
+Additional challenges include:
+
+- The toolchain is locked to a specific Rust version, which may conflict with other components of our stack.
+- The toolchain requires manual installation, which is incompatible with our current setup using Nix Flakes for development environment management.
