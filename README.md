@@ -230,7 +230,7 @@ Below the profiler report of the `test_invalid_block_969002` test (all tests hav
 
 ### Conclusion
 
-Risc Zero offers a straightforward API for creating Zero-Knowledge (ZK) circuits. However, it currently falls short of meeting our performance requirements. Generating a "STARK" proof and wrapping it in a SNARK proof takes between 1 to 2.5 minutes, whereas our current solution generates the SNARK proof in just 8 seconds.
+Risc Zero offers a straightforward API for creating Zero-Knowledge (ZK) circuits. However, it currently falls short of meeting our performance requirements. Generating a STARK proof and wrapping it in a SNARK proof takes between 1 to 2.5 minutes, whereas our current solution generates the SNARK proof in just 8 seconds.
 
 We assume that introducing elliptic curve precompiles for BN254 (namely add/mul/pairing) would drastically lower proving time. We use the [substrate-bn](https://github.com/paritytech/bn) library. This is supported by the profiler report above.
 
