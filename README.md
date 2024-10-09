@@ -184,11 +184,55 @@ Replace `<your-api-key>` with your actual Bonsai API key.
 | test_valid_block_969002     |           73998 |      156 |    326107136 |   310300091 |
 | test_valid_proof            |           69619 |      155 |    325058560 |   309422908 |
 
+### Profiler
+Below the profiler report of the `test_invalid_block_969002` test (all tests have similar results). The raw data can be downloaded [here](assets/test_invalid_block_969002.pb).
+
+#### Flamegraph
+![](assets/flame.png "Flamegraph")
+
+#### Functions sorted by cycle-count
+|      Flat |   Flat% |   Sum% |       Cum |    Cum% | Name                                                                                                     |
+|----------:|--------:|-------:|----------:|--------:|----------------------------------------------------------------------------------------------------------|
+| 229411014 |  74.06% | 74.06% | 229411014 |  74.06% | substrate_bn::arith::U256::mul                                                                           |
+|  28534717 |   9.21% | 83.27% |  28534717 |   9.21% | substrate_bn::arith::U256::add                                                                           |
+|  21340597 |   6.89% | 90.16% |  21340597 |   6.89% | substrate_bn::arith::U256::sub                                                                           |
+|  15370194 |   4.96% | 95.12% | 219017880 |  70.70% | <substrate_bn::fields::fq2::Fq2 as core::ops::arith::Mul>::mul                                           |
+|   2474955 |   0.80% | 95.92% |  36403552 |  11.75% | <substrate_bn::fields::fq2::Fq2 as substrate_bn::fields::FieldElement>::squared                          |
+|   2079648 |   0.67% | 96.59% |  82131021 |  26.51% | substrate_bn::fields::fq12::Fq12::mul_by_024                                                             |
+|   1983658 |   0.64% | 97.23% |   1983658 |   0.64% | memcpy                                                                                                   |
+|   1751274 |   0.57% | 97.80% |  47937611 |  15.47% | substrate_bn::fields::fq12::Fq12::cyclotomic_squared                                                     |
+|   1680360 |   0.54% | 98.34% |  61888724 |  19.98% | <substrate_bn::fields::fq6::Fq6 as core::ops::arith::Mul>::mul                                           |
+|   1252530 |   0.40% | 98.74% |  59268424 |  19.13% | substrate_bn::groups::AffineG<substrate_bn::groups::G2Params>::precompute                                |
+|   1036531 |   0.33% | 99.08% |  24718885 |   7.98% | <substrate_bn::groups::G<P> as substrate_bn::groups::GroupElement>::double                               |
+|    587857 |   0.19% | 99.27% |  20852524 |   6.73% | <substrate_bn::groups::G<P> as core::ops::arith::Add>::add                                               |
+|    263826 |   0.09% | 99.35% |  95611719 |  30.86% | substrate_bn::fields::fq12::Fq12::final_exponentiation                                                   |
+|    198168 |   0.06% | 99.42% |  17058508 |   5.51% | substrate_bn::groups::G<substrate_bn::groups::G2Params>::mixed_addition_step_for_flipped_miller_loop     |
+|    190826 |   0.06% | 99.48% | 108353106 |  34.98% | substrate_bn::groups::miller_loop_batch                                                                  |
+|    154836 |   0.05% | 99.53% |  45748961 |  14.77% | <substrate_bn::groups::G<P> as core::ops::arith::Mul<substrate_bn::fields::fp::Fr>>::mul                 |
+|     23232 |   0.01% | 99.53% |  45652818 |  14.74% | <substrate_bn::fields::fq12::Fq12 as core::ops::arith::Mul>::mul                                         |
+|     22144 |   0.01% | 99.54% |  22164784 |   7.16% | <substrate_bn::fields::fq12::Fq12 as substrate_bn::fields::FieldElement>::squared                        |
+|      2266 |   0.00% | 99.54% | 279673190 |  90.28% | cometbls_groth16_verifier::verify_generic_zkp_2                                                          |
+|      1611 |   0.00% | 99.54% |  30020380 |   9.69% | substrate_bn::groups::AffineG<P>::new                                                                    |
+|       712 |   0.00% | 99.54% | 263524807 |  85.07% | substrate_bn::groups::pairing_batch                                                                      |
+|       673 |   0.00% | 99.54% |  30006649 |   9.69% | <cometbls_groth16_verifier::G2Affine<byteorder::BigEndian> as core::convert::TryFrom<[u8; _]>>::try_from |
+|       286 |   0.00% | 99.54% | 263527093 |  85.07% | substrate_bn::pairing_batch                                                                              |
+|       277 |   0.00% | 99.54% | 309731113 |  99.99% | cometbls_groth16_verifier::handle_verify_zkp_request                                                     |
+|       276 |   0.00% | 99.54% |  15950853 |   5.15% | <core::iter::adapters::zip::Zip<A,B> as core::iter::adapters::zip::ZipImpl<A,B>>::fold                   |
+|        69 |   0.00% | 99.54% | 309772928 | 100.00% | guest_code_for_zk_proof::main                                                                            |
+|        40 |   0.00% | 99.54% |  29996483 |   9.68% | substrate_bn::AffineG2::new                                                                              |
+|        38 |   0.00% | 99.54% | 309773178 | 100.00% | std::rt::lang_start_internal                                                                             |
+|        14 |   0.00% | 99.54% | 309773192 | 100.00% | std::rt::lang_start                                                                                      |
+|        14 |   0.00% | 99.54% |  15885018 |   5.13% | <substrate_bn::G1 as core::ops::arith::Mul<substrate_bn::Fr>>::mul                                       |
+|        10 |   0.00% | 99.54% | 309775270 | 100.00% | __start                                                                                                  |
+|         9 |   0.00% | 99.54% | 309772943 | 100.00% | std::rt::lang_start::{{closure}}                                                                         |
+|         9 |   0.00% | 99.54% | 309773201 | 100.00% | main                                                                                                     |
+|         6 |   0.00% | 99.54% | 309772934 | 100.00% | std::sys_common::backtrace::__rust_begin_short_backtrace                                                 |
+
 ### Conclusion
 
 Risc Zero offers a straightforward API for creating Zero-Knowledge (ZK) circuits. However, it currently falls short of meeting our performance requirements. Generating a "STARK" proof and wrapping it in a SNARK proof takes between 1 to 2.5 minutes, whereas our current solution generates the SNARK proof in just 8 seconds.
 
-We assume that introducing elliptic curve precompiles for BN254 (namely add/mul/pairing) would drastically lower proving time. We use the [substrate-bn](https://github.com/paritytech/bn) library.
+We assume that introducing elliptic curve precompiles for BN254 (namely add/mul/pairing) would drastically lower proving time. We use the [substrate-bn](https://github.com/paritytech/bn) library. This is supported by the profiler report above.
 
 Additional challenges include:
 

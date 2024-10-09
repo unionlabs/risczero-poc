@@ -195,6 +195,7 @@ mod tests {
         let start = Instant::now();
 
         let env = ExecutorEnv::builder()
+            .enable_profiler(format!("{test}.pb"))
             .write(&input)
             .unwrap()
             .build()

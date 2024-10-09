@@ -21,6 +21,7 @@ fn main() {
     };
 
     let env = ExecutorEnv::builder()
+        .enable_profiler("./host.pb")
         .write(&input)
         .unwrap()
         .build()
